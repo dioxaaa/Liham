@@ -5,9 +5,8 @@ export function SiteHeader({ onWrite }) {
   return (
     <header className={styles.header}>
       <div className={`shell ${styles.inner}`}>
-        <a className={styles.brand} href="#top">
-          <img className={styles.mark} src={logoMark} alt="" width="44" height="44" />
-          <span className={styles.wordmark}>Liham</span>
+        <a className={styles.brand} href="#top" aria-label="Liham — home">
+          <img className={styles.mark} src={logoMark} alt="Liham" />
         </a>
 
         <nav className={styles.nav} aria-label="Primary">

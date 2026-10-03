@@ -7,42 +7,41 @@
   backdrop-filter: blur(10px);
 }
 
+/* main header bar: row, space-between, vertically centered, 5rem (h-20) */
 .inner {
+  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-between;
-  gap: 1rem;
-  min-height: 4.5rem;
+  align-items: center;
+  height: 5rem;
 }
 
+/* logo: out of flow, pinned left, overlapping past the header's bottom edge */
 .brand {
+  position: absolute;
+  left: 2rem;
+  top: 0.5rem;
+  z-index: 50;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
   text-decoration: none;
 }
 
 .mark {
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0.3rem;
-  border-radius: 50%;
-  background: var(--parchment);
+  height: 6rem;
+  width: auto;
   object-fit: contain;
   filter: invert(1) sepia(0.4) saturate(2.2) hue-rotate(175deg);
 }
 
-.wordmark {
-  font-family: var(--font-script);
-  font-size: clamp(1.9rem, 1.4rem + 1.4vw, 2.6rem);
-  line-height: 1;
-  color: var(--chalk);
-}
-
+/* nav cluster ("The wall" + button): flex, gap-6, right-aligned */
 .nav {
   display: flex;
   align-items: center;
-  gap: clamp(0.75rem, 2vw, 1.5rem);
+  justify-content: flex-end;
+  gap: 1.5rem;
+  margin-inline-start: auto;
 }
 
 .link {

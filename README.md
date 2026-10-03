@@ -29,7 +29,15 @@ credentials or other private secrets in this variable.
 | --- | --- |
 | `npm run dev` | Vite dev server with HMR |
 | `npm run build` | Production build into `dist/` |
-| `npm run preview` | Serve the built output locally |
+| `npm run preview` | Serve the built output locally (`http://localhost:4173`) |
+
+### Opening with VS Code Live Server
+
+The project-root `index.html` is a module entry point and will not run under Live Server,
+which serves files without compiling JSX or resolving imports. Build first, then point Live
+Server at the generated `dist/` folder (right-click `dist/index.html` → Open with Live
+Server). Serve it over `http://`, not by double-clicking the file — ES modules are blocked on
+`file://`. `base: "./"` in `vite.config.js` keeps those asset URLs portable.
 
 ## Project layout
 
