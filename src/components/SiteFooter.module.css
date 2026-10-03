@@ -1,0 +1,28 @@
+.footer {
+  padding-block: clamp(2.5rem, 7vh, 4rem);
+  border-top: 1px solid var(--border);
+  background: rgb(11 9 8 / 55%);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.line {
+  font-family: var(--font-script);
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.2rem);
+  color: var(--chalk-muted);
+}
+
+.fine {
+  width: min(100%, 1180px);
+  margin: 1.25rem auto 0;
+  padding-inline: var(--gutter);
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--chalk-faint);
+}

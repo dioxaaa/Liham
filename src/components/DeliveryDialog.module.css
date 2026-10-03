@@ -1,0 +1,105 @@
+.head {
+  text-align: center;
+}
+
+.title {
+  margin-top: 0.9rem;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.15rem);
+}
+
+.sub {
+  max-width: 34ch;
+  margin: 0.6rem auto 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--chalk-muted);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1.75rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 0.9rem;
+}
+
+.field {
+  margin-top: 0.85rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.input {
+  width: 100%;
+  padding: 0.65em 0.75em;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--ink-900);
+  color: var(--chalk);
+  font-size: 0.98rem;
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+
+.input:hover {
+  border-color: var(--border-strong);
+}
+
+.input:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--ink-850);
+}
+
+.input.invalid {
+  border-color: var(--danger);
+}
+
+select.input {
+  appearance: none;
+  padding-right: 2rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--chalk-muted) 50%),
+    linear-gradient(135deg, var(--chalk-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.05rem) 55%,
+    calc(100% - 0.75rem) 55%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.error {
+  margin-top: 0.4rem;
+  font-size: 0.83rem;
+  color: var(--danger);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  margin-top: 1.9rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 420px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+}

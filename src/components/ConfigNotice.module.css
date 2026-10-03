@@ -1,0 +1,16 @@
+.notice {
+  padding: 0.75rem var(--gutter);
+  border-bottom: 1px solid rgb(200 169 81 / 35%);
+  background: rgb(200 169 81 / 12%);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--chalk);
+  text-align: center;
+}
+
+.notice code {
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  background: rgb(11 9 8 / 55%);
+  font-size: 0.9em;
+}

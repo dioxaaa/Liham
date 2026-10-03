@@ -1,0 +1,140 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: safe center;
+  padding: clamp(0.75rem, 3vw, 2rem);
+  background: rgb(11 9 8 / 78%);
+  backdrop-filter: blur(6px);
+  animation: backdrop-in var(--dur) var(--ease-out);
+  overflow-y: auto;
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.card {
+  position: relative;
+  width: min(100%, 34rem);
+  max-height: calc(100svh - 2 * clamp(0.75rem, 3vw, 2rem));
+  overflow-y: auto;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgb(244 237 224 / 4%), transparent 40%),
+    var(--ink-850);
+  box-shadow: var(--shadow-card);
+  animation: card-in var(--dur) var(--ease-out);
+  outline: none;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0.5rem;
+  border: 1px solid var(--gold-soft);
+  border-radius: calc(var(--radius-lg) - 4px);
+  pointer-events: none;
+}
+
+/* ---------- parchment variant: used for reading a letter ---------- */
+
+.paper {
+  width: min(100%, 40rem);
+  border-color: rgb(59 44 32 / 25%);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgb(255 255 255 / 45%), transparent 60%),
+    var(--parchment);
+  color: var(--paper-ink);
+}
+
+.paper::before {
+  border-color: rgb(59 44 32 / 18%);
+}
+
+.paper .close {
+  border-color: rgb(59 44 32 / 25%);
+  background: rgb(255 255 255 / 35%);
+  color: var(--paper-ink);
+}
+
+.paper .close:hover {
+  background: rgb(255 255 255 / 70%);
+  color: var(--paper-ink);
+}
+
+/* ---------- sealed variant: the confirmation stamp ---------- */
+
+.sealed {
+  width: min(100%, 27rem);
+  text-align: center;
+}
+
+/* ---------- stage variant: the letter sheet lives here ---------- */
+
+.stage {
+  width: min(100%, 62rem);
+  max-height: none;
+  padding: clamp(1.25rem, 3vw, 2rem) 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+.stage::before {
+  display: none;
+}
+
+.stage .close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: rgb(16 13 11 / 70%);
+}
+
+/* ---------- close ---------- */
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--chalk-muted);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.close:hover {
+  color: var(--chalk);
+  border-color: var(--border-strong);
+  background: rgb(244 237 224 / 8%);
+  transform: rotate(90deg);
+}
+
+.close svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}

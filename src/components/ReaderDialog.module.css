@@ -1,0 +1,37 @@
+.head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgb(59 44 32 / 20%);
+}
+
+.seal {
+  --seal-size: 2.6rem;
+}
+
+.kicker {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--paper-ink-soft);
+}
+
+.message {
+  font-size: clamp(1.05rem, 1rem + 0.35vw, 1.2rem);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(59 44 32 / 15%);
+  font-size: 0.78rem;
+  font-style: italic;
+  text-align: right;
+  color: var(--paper-ink-soft);
+}

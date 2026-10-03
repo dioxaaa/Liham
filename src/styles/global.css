@@ -1,0 +1,294 @@
+/* =========================================================
+   Liham — reset, page frame, shared primitives
+   ========================================================= */
+
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100svh;
+  /* Lamp glow, painted beneath everything (a negative z-index pseudo-element
+     would be hidden behind the canvas background). */
+  background-color: var(--ink-950);
+  background-image:
+    radial-gradient(120% 70% at 50% -10%, rgb(200 169 81 / 14%), transparent 60%),
+    radial-gradient(90% 60% at 8% 108%, rgb(140 43 34 / 18%), transparent 65%),
+    linear-gradient(180deg, var(--ink-950), var(--ink-900) 45%, var(--ink-950));
+  background-attachment: fixed;
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Film grain over the whole page, dialogs included. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--wax);
+  color: var(--chalk);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- layout ---------- */
+
+.shell {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(4rem, 11vh, 7.5rem);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+}
+
+.eyebrow--center {
+  justify-content: center;
+}
+
+.eyebrow--center::before,
+.eyebrow--center::after {
+  max-width: 5rem;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--fg);
+  --btn-border: var(--border-strong);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85em 1.6em;
+  border: 1px solid var(--btn-border);
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.btn--primary {
+  --btn-bg: var(--parchment);
+  --btn-fg: var(--ink-900);
+  --btn-border: var(--parchment);
+  box-shadow: var(--shadow-card);
+}
+
+.btn--primary:hover:not(:disabled) {
+  --btn-bg: #f5ead6;
+  --btn-border: #f5ead6;
+  box-shadow: 0 30px 60px -26px rgb(0 0 0 / 85%);
+}
+
+.btn--wax {
+  --btn-bg: var(--wax);
+  --btn-fg: var(--chalk);
+  --btn-border: var(--wax-hot);
+}
+
+.btn--wax:hover:not(:disabled) {
+  --btn-bg: var(--wax-hot);
+}
+
+.btn--quiet {
+  --btn-fg: var(--chalk-muted);
+  --btn-border: var(--border);
+}
+
+.btn--quiet:hover:not(:disabled) {
+  --btn-fg: var(--chalk);
+  --btn-border: var(--border-strong);
+  background: rgb(244 237 224 / 6%);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--sm {
+  padding: 0.5em 1.1em;
+  font-size: 0.9rem;
+}
+
+/* ---------- wax seal (shared mark: header, buttons, wall cards) ---------- */
+
+.seal {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--seal-size, 2.75rem);
+  aspect-ratio: 1;
+  color: var(--seal-ink, var(--chalk));
+  filter: drop-shadow(0 6px 14px rgb(0 0 0 / 45%));
+  transition: transform var(--dur) var(--ease-out), filter var(--dur) var(--ease-out);
+}
+
+.sealBlotch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--seal-color, var(--wax));
+}
+
+.sealLetter {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: calc(var(--seal-size, 2.75rem) * 0.46);
+  line-height: 1;
+  color: var(--seal-ink, var(--chalk));
+}
+
+/* ---------- scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
